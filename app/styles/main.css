@@ -1,0 +1,212 @@
+body {
+    min-width: 600px;
+    font-family: sans-serif;
+}
+
+header {
+    height: 10%;
+    width: 100%;
+    background: #333333;
+    color: #D6D6D6;
+}
+
+header h3 {
+    margin-left: 20px;
+    padding-top: 25px;
+}
+
+footer {
+    height: 15%;
+    width: 100%;
+    background: #D6D6D6;
+    border-top: solid 1px gray;
+}
+
+.footer-inner {
+    margin: 0 auto;
+    width: 464px;
+    position: relative;
+    top: 20px;
+}
+
+/* General styles */
+.pull-left {
+    float: left;
+}
+
+.hor-center {
+    margin: 0 auto;
+}
+
+.fifty {
+    width: 50%;
+}
+
+.content {
+    height: 75%;
+    min-height: 450px;
+    width: 100%;
+    background: #D6D6D6;
+}f
+
+.half {
+    height: 50%;
+    width: 100%;
+}
+
+/* Day input */
+.input-fields-container {
+    margin: 0 auto;
+    height: 45px;
+    width: 230px;
+    padding-top: 20%;
+    margin-bottom: 40px;
+}
+
+.input-fields-container > .hor-center {
+    width: 300px;
+}
+
+/* Results section */
+.results-date {
+    min-width: 315px;
+    margin: 0 auto 40px;
+    clear: both;
+}
+.results-date p {
+    font-weight: 600;
+    margin-top: -5px;
+}
+
+.results-date h1 {
+    color: black;
+    margin-top: -5px;
+}
+
+.results-difference {
+    width: 30%;
+    margin: 0 auto;    
+}
+
+.results-difference p {
+    margin-top: -10px;
+    font-weight: 600;
+}
+
+.results-difference h1 {
+    margin-top: -10px;
+    color: black;
+}
+
+.result-label {
+    margin: -36px auto;
+    width: 60%;
+    text-align: center;
+    color: gray;
+}
+
+.result-label-line {
+    height: 33px;
+    width: 42%;
+    border-bottom: solid 1px gray;
+}
+
+#num-days {
+    height: 42px;
+    margin-left: -5px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border: transparent;
+    text-align: center;
+    font-weight: 600;
+    width: 125px;
+}
+
+/* Currency dropdown and submit button */
+.action-container {
+    width: 320px;
+}
+
+.currency-select-container {
+    width:250px;
+    height: 42px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background: #333333;
+    color: gray;
+    text-indent: 7px;
+    font-weight: bold;
+}
+
+#currency-select {
+    margin-top: 10px;
+    width: 233px;
+    background: inherit;
+    color: inherit;
+    border: none
+}
+
+#submit {
+    height: 42px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background: black;
+    color: gray;
+    width: 75px;
+    margin-left: -10px;
+    border: transparent;
+}
+
+/* Flag related styles */
+.flag {
+    width: 48px;
+    height: 42px;
+    float: left;
+    margin-right: 10px;
+    position: relative;
+}
+
+.flag-label {
+    position: relative;
+    top: 27px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.aud {
+    background-image:url('../images/aud.png');
+}
+
+.chf {
+    background-image:url('../images/chf.png');
+}
+.czk {
+    background-image:url('../images/czk.png');
+}
+.eur {
+    background-image:url('../images/eur.png');
+}
+.krw {
+    background-image:url('../images/krw.png');
+}
+.gbp {
+    background-image:url('../images/gbp.png');
+}
+.ils {
+    background-image:url('../images/ils.png');
+}
+.usd {
+    background-image:url('../images/usd.png');
+    margin-left: 22px;
+    background-position: 1px -2px;
+}
+.zar {
+    background-image:url('../images/zar.png');
+}
+
+.usd-flag-container {
+    background: #333333;
+    border-top-left-radius: 20px; 
+    border-bottom-left-radius: 20px;
+    padding-right:5px;
+}
