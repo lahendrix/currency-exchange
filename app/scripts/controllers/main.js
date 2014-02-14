@@ -1,15 +1,16 @@
 'use strict';
 
-angular.module('gitHubApp')
-  .controller('MainCtrl', function ($scope) {
+angular.module('currencyExchangeApp')
+  .controller('MainCtrl', function ($scope, ExchangeRateService) {
+    var baseUrl = 'http://openexchangerates.org/api/',
+        APPKEY = 'app_id=19960cf6be094b199d6b4381b44842a0',
+        MILLISECONDS = 1000;
+
     $scope.numOfDays;
     $scope.selectedCurrency;
     $scope.resultsDate;
     $scope.resultsDifference;
     $scope.submitLabel = 'Submit';
-    $scope.baseUrl = 'http://openexchangerates.org/api/';
-    $scope.APPKEY = 'app_id=19960cf6be094b199d6b4381b44842a0';
-    $scope.MILLISECONDS = 1000;
 
     $scope.dateCalculator = function (date, days){
         var y = date.getFullYear(),
