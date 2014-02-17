@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('gitHubApp', [
+angular.module('currencyExchangeApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',

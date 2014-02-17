@@ -7,6 +7,7 @@ angular.module('currencyExchangeApp')
         MILLISECONDS = 1000;
 
     $scope.numOfDays;
+    $scope.daysEnabled = true;
     $scope.selectedCurrency;
     $scope.resultsDate;
     $scope.resultsDifference;
@@ -54,8 +55,6 @@ angular.module('currencyExchangeApp')
             formattedEnd = getFormattedDate(endDate); 
         $scope.resultsDate = formattedStart + ' / ' + formattedEnd;
         $scope.resultsDifference = results.diff;
-        // $('.results-date h1').html(formattedStart + ' / ' + formattedEnd);
-        // $('.results-difference h1').html(results.diff);
     };
 
     $scope.submit = function(e) {
@@ -64,67 +63,67 @@ angular.module('currencyExchangeApp')
         now = new Date(Date.now()),
         self = this,
         requestCounter = 0,
-        data = {};
+        data = {},
+        successCallback = function (json) {
+            // Store all responses and allow them to be referenced by their timestamp
+            data[json.timestamp] = json.rates;
+            requestCounter++;
 
-     // Don't allow non-numeric entries   
-    if(isNaN(days)) {
-        alert('value is not a number');
-        return;
-    } 
-
-    // Don't allow fractional number of days
-    if((days % 1) != 0) {
-        alert('value is not an integer');
-        return;
-    }
-
-    // Currency must be selected
-    if(currency.length == 0) {
-        alert('you must select a currency');
-        return;
-    }
-
-    // Show Loading text and disable input
-    //$(this).html('Loading...');
-    //$('#num-days').attr('disabled',true);
-    $scope.submitLabel = 'Loading...';
-    // Loop through the last n days and call the historical data endpoint
-    // to get those exchange rates
-    // TODO: Really slow when days > 50, cache the first 365 days on initial page load
-    for(var i = 0; i <= days; i++) {
-
-        var newDate = $scope.dateCalculator(now, 0 - i),
-            dateParam = $scope.getFormattedDate(newDate), //y + '-' + m + '-' + d,
-            url = $scope.baseUrl + 'historical/' + dateParam + '.json?' + $scope.APPKEY;
-        
-        // For current date, call the latest.json endpoint    
-        if( i == 0) {
-            url = $scope.baseUrl + 'latest.json?' + $scope.APPKEY;
-        }
-
-        // call the exchange rate endpoint for a given date
-        $.ajax({
-            url: url,
-            success: function (json) {
-                // Store all responses and allow them to be referenced by their timestamp
-                data[json.timestamp] = json.rates;
-                requestCounter++;
-
-              // Since calls are async, only calculate the difference when we've got all data back
-              // Should have current date data, plus n historical days of data -> n + 1
-              if(requestCounter == (days + 1)) {
-                calculateGreatestDifference(data, currency);
+            // Since calls are async, only calculate the difference when we've got all data back
+            // Should have current date data, plus n historical days of data -> n + 1
+            if(requestCounter == (days + 1)) {
+                $scope.calculateGreatestDifference(data, currency);
 
                 // Remove Loading text and show Submit text
                 // Re-enable input box
+                $scope.daysEnabled = true;
                 $scope.submitLabel = 'Submit';
-                //$('#num-days').attr('disabled',false);
-              }
-            }, error: function () {
-              requestCounter++;
             }
-        });
-    }
+        },
+        errorCallback = function () {
+            requestCounter++;
+        },
+        newDate, dateParam, i;
+
+         // Don't allow non-numeric entries   
+        if(isNaN(days)) {
+            alert('value is not a number');
+            return;
+        } 
+
+        // Don't allow fractional number of days
+        if((days % 1) != 0) {
+            alert('value is not an integer');
+            return;
+        }
+
+        // Currency must be selected
+        if(currency.length == 0) {
+            alert('you must select a currency');
+            return;
+        }
+
+        // Show Loading text and disable input
+        $scope.daysEnabled = false;
+        $scope.submitLabel = 'Loading...';
+
+
+        // Loop through the last n days and call the historical data endpoint
+        // to get those exchange rates
+        // // TODO: Really slow when days > 50, cache the first 365 days on initial page load
+        for(i = 0; i <= days; i++) {
+
+            newDate = $scope.dateCalculator(now, 0 - i);
+            dateParam = $scope.getFormattedDate(newDate);
+                
+            
+            // For current date, call the latest.json endpoint    
+            if( i == 0) {
+                ExchangeRateService.getLatestData(successCallback, errorCallback);
+            } else {
+                ExchangeRateService.getHistoricalData(dateParam, successCallback, errorCallback);
+            }
+        }
 
     }
 
