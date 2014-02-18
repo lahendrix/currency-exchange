@@ -12,8 +12,19 @@ angular.module('currencyExchangeApp')
     $scope.resultsDate;
     $scope.resultsDifference;
     $scope.submitLabel = 'Submit';
+    $scope.currencyOptions = [
+        { value:"", label:"Pick a Currency"},
+        { value:"AUD", label:"Australian dollar"},
+        { value:"CHF", label:"Swiss franc"},
+        { value:"CZK", label:"Czech Republic koruna"},
+        { value:"EUR", label:"Europe euro"},
+        { value:"KRW", label:"South Korean won"},
+        { value:"GBP", label:"British pound"},
+        { value:"ZAR", label:"South African rand"},
+        { value:"ILS", label:"New Israel shekel"}
+    ];
 
-    $scope.dateCalculator = function (date, days){
+    var dateCalculator = function (date, days){
         var y = date.getFullYear(),
             m = date.getMonth(),
             d = date.getDate();
@@ -21,7 +32,7 @@ angular.module('currencyExchangeApp')
         return new Date(y, m, d);
     };
 
-    $scope.calculateGreatestDifference = function(rates, currency) {
+    var calculateGreatestDifference = function(rates, currency) {
         var sortedDates = Object.keys(rates).sort(),
             numOfDays = sortedDates.length,
             startDate = sortedDates[0], 
@@ -42,13 +53,13 @@ angular.module('currencyExchangeApp')
         updateResults({diff: greatestDiff.toFixed(5), start: startDate, end: endDate});
     };
 
-    $scope.getFormattedDate = function (date) {
+    var getFormattedDate = function (date) {
       var month = (date.getMonth() + 1).toString().length == 1? '0' + (date.getMonth() + 1) : date.getMonth(),
         day = date.getDate().toString().length == 1? '0' + date.getDate(): date.getDate();
       return date.getFullYear() + '-' + month + '-' + day;
     };
 
-    $scope.updateResults = function(results) {
+    var updateResults = function(results) {
         var startDate = new Date(results.start * MILLISECONDS),
             formattedStart = getFormattedDate(startDate), 
             endDate = new Date(results.end * MILLISECONDS),
@@ -72,7 +83,7 @@ angular.module('currencyExchangeApp')
             // Since calls are async, only calculate the difference when we've got all data back
             // Should have current date data, plus n historical days of data -> n + 1
             if(requestCounter == (days + 1)) {
-                $scope.calculateGreatestDifference(data, currency);
+                calculateGreatestDifference(data, currency);
 
                 // Remove Loading text and show Submit text
                 // Re-enable input box
@@ -113,8 +124,8 @@ angular.module('currencyExchangeApp')
         // // TODO: Really slow when days > 50, cache the first 365 days on initial page load
         for(i = 0; i <= days; i++) {
 
-            newDate = $scope.dateCalculator(now, 0 - i);
-            dateParam = $scope.getFormattedDate(newDate);
+            newDate = dateCalculator(now, 0 - i);
+            dateParam = getFormattedDate(newDate);
                 
             
             // For current date, call the latest.json endpoint    

@@ -8,24 +8,26 @@ angular.module('currencyExchangeApp')
   		getHistoricalData: function (dateParam, successCallback, errorCallback) {
   			var url = baseUrl + 'historical/' + dateParam + '.json?' + APPKEY;
   			console.log('histoical: ', url);
-  			$http.jsonp(url)
+  			$http.jsonp(url + '?callback=successCallback')
 			.success(function(data, status, headers, config) {
-			    successCallback(data, status, header, config);
+				console.log('success', data);
+			    // successCallback(data, status, header, config);
 			 })
 			.error(function(data, status, headers, config) {
-		    	errorCallback(data, status, headers, config);
+		    	// errorCallback(data, status, headers, config);
 		  	});
   		},
 
   		getLatestData: function (successCallback, errorCallback) {
   			var url = baseUrl + 'latest.json?' + APPKEY;
   			console.log('latest: ', url);
-  			$http.jsonp(url)
+  			$http.jsonp(url + '?callback=successCallback')
 			.success(function(data, status, headers, config) {
-			    successCallback(data, status, header, config);
+				console.log('success', data);
+			    // successCallback(data, status, header, config);
 			 })
 			.error(function(data, status, headers, config) {
-		    	errorCallback(data, status, headers, config);
+		    	// errorCallback(data, status, headers, config);
 		  	});
   		}
   	}

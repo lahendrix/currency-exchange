@@ -8,7 +8,7 @@
             <div class="input-fields-container">
                 <div class="hor-center">
                     <div class="pull-left usd-flag-container"> 
-                        <span class="flag usd"></span>
+                        <span class="flag USD"></span>
                     </div>
                     <div class="pull-left">
                         <input type="text" id="num-days" placeholder="Days" ng-model="numOfDays" enabled="daysEnabled"/>
@@ -19,15 +19,7 @@
                 <div class="hor-center">
                 <div class="pull-left currency-select-container">
                     <select name="select" id="currency-select" ng-model="selectedCurrency">
-                        <option value="">Pick a Currency</option>
-                        <option value="AUD">Australian dollar</option>
-                        <option value="CHF">Swiss franc</option>
-                        <option value="CZK">Czech Republic koruna</option>
-                        <option value="EUR">Europe euro</option>
-                        <option value="KRW">South Korean won</option>
-                        <option value="GBP">British pound</option>
-                        <option value="ZAR">South African rand</option>
-                        <option value="ILS">New Israel shekel</option>
+                        <option ng-selected="{{currency.value == ''}}" value="{{currency.value}}" ng-repeat="currency in currencyOptions">{{currency.label}}</option>
                     </select>
                 </div>
                 <button id="submit" class="pull-left" ng-click="submit()">{{submitLabel}}</button>
@@ -55,13 +47,6 @@
 </div>
 <footer>
     <div class="footer-inner">
-        <div class="flag aud"><p class="flag-label">AUD</p></div>
-        <div class="flag chf"><p class="flag-label">CHF</p></div>
-        <div class="flag czk"><p class="flag-label">CZK</p></div>
-        <div class="flag eur"><p class="flag-label">EUR</p></div>
-        <div class="flag krw"><p class="flag-label">KRW</p></div>
-        <div class="flag gbp"><p class="flag-label">GBP</p></div>
-        <div class="flag zar"><p class="flag-label">ZAR</p></div>
-        <div class="flag ils"><p class="flag-label">ILS</p></div>
+        <div class="flag {{currency.value}}" ng-repeat="currency in currencyOptions"><p class="flag-label">{{currency.value}}</p></div>
     </div>
 </footer>

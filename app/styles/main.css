@@ -173,34 +173,34 @@ footer {
     font-weight: bold;
 }
 
-.aud {
+.AUD {
     background-image:url('../images/aud.png');
 }
 
-.chf {
+.CHF {
     background-image:url('../images/chf.png');
 }
-.czk {
+.CZK {
     background-image:url('../images/czk.png');
 }
-.eur {
+.EUR {
     background-image:url('../images/eur.png');
 }
-.krw {
+.KRW{
     background-image:url('../images/krw.png');
 }
-.gbp {
+.GBP {
     background-image:url('../images/gbp.png');
 }
-.ils {
+.ILS {
     background-image:url('../images/ils.png');
 }
-.usd {
+.USD {
     background-image:url('../images/usd.png');
     margin-left: 22px;
     background-position: 1px -2px;
 }
-.zar {
+.ZAR {
     background-image:url('../images/zar.png');
 }
 
